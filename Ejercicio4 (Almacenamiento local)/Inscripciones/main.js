@@ -21,23 +21,31 @@ class Main {
             };
 
             let Inscripcion = new Inscripciones(objAlumno);
+            let found = -1;
+            cuentas.forEach((e, index) => {
+                if(e.nCuenta === nCuenta) {
+                    found = index;
+                }
+            });
+            if (found >= 0) {
+                alert("Esta cuenta ya existe");
+            }else{
 
-            todos = [];
             let local = JSON.parse(localStorage.getItem("inscripciones-2"))
 
             if (local != null) {
                 todos = local;
             }
 
-            console.log(todos);
-
             todos.push(Inscripcion);
 
             localStorage.setItem("inscripciones-2", JSON.stringify(todos));
             console.log(JSON.parse (localStorage.getItem("inscripciones-2")));
         }
-            else{
-                alert("Alumno ya había sido registrado")
+                alert("Estudiante agregado");
+
+                localStorage.clear();
+                console.log(todos);
             }
         });
     }

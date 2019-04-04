@@ -1,49 +1,21 @@
-import Cuentas from "./Cuenta.js";
+import Movimientos from "./movimiento.js"
+import Cuenta from "./Cuenta.js";
 
-class Main {
-    constructor() {
-        var nCuenta = document.querySelector("#nCuenta").value;
-        var name = document.querySelector("#name").value;
+class Main{
+    constructor(){
+    this._list = new Movimientos(document.querySelector("#list"), document.querySelector('#info'));
 
-        var todos = [];
-        this._totalDeposito = 0;
-        this._totalRetiro = 0;
-        
+    document.querySelector("#btn1").addEventListener("click", () => {
+        let nCuenta = document.querySelector("#nCuenta").value;
+        let name = document.querySelector("#name").value;
+        let opcion = document.querySelector("#opcion").value;
+        let cantidad = document.querySelector("#cantidad").value;
 
-        document.querySelector("#btnAdd").addEventListener("click", () => {
+        let cliente = new Cuenta(nCuenta, name, opcion, cantidad);
+        this._list.addMove(cliente);
+    });
 
-            let objCuenta = {
-                nCuenta : nCuenta,
-                name : name,
-            };
-
-            let Cuenta = new Cuentas(objCuenta);
-
-            todos = [];
-            let local = JSON.parse(localStorage.getItem("cuentas-2"))
-
-            if (local != null) {
-                todos = local;
-            }
-
-            console.log(todos);
-
-            todos.push(Cuenta);
-
-            localStorage.setItem("cuentas-2", JSON.stringify(todos));
-            console.log(JSON.parse(localStorage.getItem("cuentas-2")));
-
-
-            if(opcion === "1"){
-                this._totalDeposito = getDeposito();
-            }
-
-            if(opcion === "2"){
-                this._totalRetiro = getRetiro();
-            }
-
-        });
-    }
+}
 }
 
 let m = new Main();
